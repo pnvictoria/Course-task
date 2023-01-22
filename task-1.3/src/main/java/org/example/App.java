@@ -5,8 +5,6 @@ public class App {
         DivisionCalculator divisionCalculator = new DivisionCalculator();
         DivisionResult divisionResult = divisionCalculator.divide(78945, 4);
         DivisionFormatter divisionFormatter = new DivisionFormatter();
-        String output = divisionFormatter.format(divisionResult);
-
-        System.out.println(output);
+        System.out.println(new DivisionFormatter().format(divisionResult));
     }
 }
