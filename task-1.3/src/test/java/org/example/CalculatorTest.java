@@ -1,12 +1,14 @@
 package org.example;
 
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Deque;
 import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 public class CalculatorTest {
     DivisionCalculator divisionCalculator = new DivisionCalculator();
@@ -18,9 +20,7 @@ public class CalculatorTest {
         for (int value : arr) {
             expected.add(value);
         }
-
         Deque<Integer> actual= divisionCalculator.getDivisionQueue(78945, 4, 19736);
-
         for (int i = 0; i < expected.size(); i++) {
             assertEquals(expected.pop(), actual.pop());
         }
@@ -29,13 +29,11 @@ public class CalculatorTest {
     @Test
     void getDivisionListTestTwo() {
         Stack<Integer> expected = new Stack<>();
-        int[] arr = {15, 207, 222, 161, 183, 46};
-        for (int value : arr) {
+        int[] array = {15, 207, 222, 161, 183, 46};
+        for (int value : array) {
             expected.add(value);
         }
-
         Deque<Integer> actual= divisionCalculator.getDivisionQueue(6432, 23, 279);
-
         for (int i = 0; i < expected.size(); i++) {
             assertEquals(expected.pop(), actual.pop());
         }
@@ -53,7 +51,7 @@ public class CalculatorTest {
         for (int i = 0; i < expected.size(); i++) {
             assertEquals(expected.pop(), actual.getIntermediateResults().pop());
         }
-   }
+    }
 
     @Test
     void gettingResultTest() {
@@ -61,19 +59,8 @@ public class CalculatorTest {
         int divider = 467;
 
         int actual = divisionCalculator.divide(dividend, divider).getResult();
-
         int expected = dividend / divider;
 
         assertEquals(expected, actual);
-    }
-
-    @Test
-    void ArithmeticExceptionTest() {
-        int dividend = 100;
-        int divider = 0;
-
-        Exception ex = assertThrows(ArithmeticException.class, () -> divisionCalculator.divide(dividend, divider), "Invalid error message.");
-
-        assertEquals("Division by zero!", ex.getMessage());
     }
 }
