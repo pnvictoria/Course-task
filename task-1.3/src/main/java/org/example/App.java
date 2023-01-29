@@ -1,5 +1,9 @@
 package org.example;
 
+import org.example.division.DivisionCalculator;
+import org.example.division.DivisionFormatter;
+import org.example.division.DivisionResult;
+
 public class App {
     public static void main(String[] args) {
         DivisionCalculator divisionCalculator = new DivisionCalculator();

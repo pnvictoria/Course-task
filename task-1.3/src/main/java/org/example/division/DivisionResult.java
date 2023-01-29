@@ -1,4 +1,4 @@
-package org.example;
+package org.example.division;
 
 import java.util.Deque;
 
@@ -7,6 +7,13 @@ public final class DivisionResult {
     private final int divider;
     private final int result;
     private final Deque<Integer> intermediateResults;
+
+    public DivisionResult(int dividend, int divider, int result, Deque<Integer> stack) {
+        this.dividend = dividend;
+        this.divider = divider;
+        this.result = result;
+        this.intermediateResults = stack;
+    }
 
     public int getDividend() {
         return dividend;
@@ -22,12 +29,5 @@ public final class DivisionResult {
 
     public Deque<Integer> getIntermediateResults() {
         return intermediateResults;
-    }
-
-    public DivisionResult(int dividend, int divider, int result, Deque<Integer> stack) {
-        this.dividend = dividend;
-        this.divider = divider;
-        this.result = result;
-        this.intermediateResults = stack;
     }
 }

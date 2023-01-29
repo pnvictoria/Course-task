@@ -1,4 +1,4 @@
-package org.example;
+package org.example.division;
 
 public class DivisionFormatter {
     private DivisionResult divisionResult;
@@ -31,6 +31,22 @@ public class DivisionFormatter {
         return formattedResult.toString();
     }
 
+    public String repeatSymbol(int count, String with) {
+        return new String(new char[count]).replace("\0", with);
+    }
+
+    public int getCountOfDigits(int number) {
+        return number == 0 ? 1 : (int) Math.log10(number) + 1;
+    }
+
+    public int getPeekNumber() {
+        if (divisionResult.getIntermediateResults().isEmpty()) {
+            throw new NullPointerException("List is empty!");
+        } else {
+            return divisionResult.getIntermediateResults().peek();
+        }
+    }
+
     private String displayCalculatingSausage(int countOfDigitsInPrevious) {
         StringBuilder column = new StringBuilder("");
         int countOfDigits = getCountOfDigits(getPeekNumber());
@@ -55,19 +71,5 @@ public class DivisionFormatter {
         return column.toString();
     }
 
-    protected String repeatSymbol(int count, String with) {
-        return new String(new char[count]).replace("\0", with);
-    }
 
-    protected int getCountOfDigits(int number) {
-        return number == 0 ? 1 : (int) Math.log10(number) + 1;
-    }
-
-    protected int getPeekNumber() {
-        if (divisionResult.getIntermediateResults().isEmpty()) {
-            throw new NullPointerException("List is empty!");
-        } else {
-            return divisionResult.getIntermediateResults().peek();
-        }
-    }
 }
