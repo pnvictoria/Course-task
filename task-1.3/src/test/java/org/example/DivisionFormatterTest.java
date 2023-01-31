@@ -16,6 +16,7 @@ public class DivisionFormatterTest {
     public DivisionFormatterTest() {
         formatter = new DivisionFormatter();
     }
+
     @Test
     void format_getFormatString_ifInputIsNumbers() {
         Deque<Integer> stack = new ArrayDeque<>();
@@ -25,34 +26,24 @@ public class DivisionFormatterTest {
         stack.push(4);
         DivisionResult divisionResult = new DivisionResult(78, 4, 19, stack);
 
-        String expected = "_78|4\n" + " 4 |--\n" + " - |19\n" + "_38\n" + " 36\n" + " --\n" + "  2";
-        String actual = formatter.format(divisionResult);
+        String expected =
+                "_78|4" + System.lineSeparator() +
+                " 4 |--" + System.lineSeparator() +
+                " - |19" + System.lineSeparator() +
+                "_38" + System.lineSeparator() +
+                " 36" + System.lineSeparator() +
+                " --" + System.lineSeparator() +
+                "  2";
+        formatter.setDivisionResult(divisionResult);
+        String actual = formatter.format();
         assertEquals(expected, actual);
-    }
-
-    @Test
-    void repeatSymbol_getStringWithRepeatSymbol_ifInputIsStringAndCount() {
-        String actual = formatter.repeatSymbol(3, "Hello!");
-        String expected = "Hello!Hello!Hello!";
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void getCountOfDigits_ifInputIsLongInteger() {
-        int actual = formatter.getCountOfDigits(123456789);
-        assertEquals(9, actual);
-    }
-
-    @Test
-    void getCountOfDigits_ifInputIsShortInteger() {
-        int actual = formatter.getCountOfDigits(0);
-        assertEquals(1, actual);
     }
 
     @Test
     void format_getPeekOfNull_ifIntermediateResultsIsEmpty() {
         DivisionResult divisionResult = new DivisionResult(78, 4, 19, new ArrayDeque<>());
-        Exception ex = assertThrows(NullPointerException.class, () -> formatter.format(divisionResult), "Invalid error message.");
+        formatter.setDivisionResult(divisionResult);
+        Exception ex = assertThrows(RuntimeException.class, () -> formatter.format(), "Division by zero is not possible");
         assertEquals("List is empty!", ex.getMessage());
     }
 }

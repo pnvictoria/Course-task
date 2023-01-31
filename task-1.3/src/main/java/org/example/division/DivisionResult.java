@@ -8,11 +8,11 @@ public final class DivisionResult {
     private final int result;
     private final Deque<Integer> intermediateResults;
 
-    public DivisionResult(int dividend, int divider, int result, Deque<Integer> stack) {
+    public DivisionResult(int dividend, int divider, int result, Deque<Integer> intermediateResults) {
         this.dividend = dividend;
         this.divider = divider;
         this.result = result;
-        this.intermediateResults = stack;
+        this.intermediateResults = intermediateResults;
     }
 
     public int getDividend() {
