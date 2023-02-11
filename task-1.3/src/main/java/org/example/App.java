@@ -2,21 +2,38 @@ package org.example;
 
 import org.example.division.DivisionService;
 
+import java.util.Scanner;
+
 public class App {
-    //TODO: Консольное приложение предполагает элементарный консольный интерфейс.
-    // Программа должна с нами поздороваться, предложить ввести 2 числа для деления.
-    // Потом вывести результат. Можно это сделать в цикле и спрашивать, хочет ли
-    // пользователь завершить работу, или поделить еще числа.
-
-    //TODO: По сути нам тут в main не очень нужен DivisionResult. Лучше пусть будет
-    // DivisionService (вместо DivisionCalculator или кроме DivisionCalculator), которому
-    // мы дадим 2 числа, а он пусть нам отдаст готовую стрингу для вывода на экран.
-    // Пусть он внутри себя использует DivisionFormatter, а не мы тут в main методе.
-    // Кроме облегчения main метода мы получим класс с методом, который удобно тестировать.
-    // Создавать DivisionResult в тесте для divisionCalculator.divide - не самая простая задача.
-
-
     public static void main(String[] args) {
-        System.out.println(new DivisionService().getDivision(78945, 4));
+        boolean isExit = false;
+        DivisionService divisionService = new DivisionService();
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (!isExit) {
+                System.out.println("********************************");
+                System.out.println(" 1. Divide numbers;");
+                System.out.println(" 0. Exit;");
+                System.out.print("Answer: ");
+                int command = scanner.nextInt();
+                switch (command) {
+                    case 1:
+                        System.out.print("Dividend:");
+                        int dividend = scanner.nextInt();
+                        System.out.print("Dividend:");
+                        int divider = scanner.nextInt();
+                        System.out.println("Result :" + System.lineSeparator() + divisionService.divide(dividend, divider));
+                        break;
+                    case 0:
+                        System.out.println("The program was closed.");
+                        isExit = true;
+                        break;
+                    default:
+                        System.out.println("Incorrect number.");
+                        break;
+                }
+            }
+        } catch (RuntimeException exception) {
+            System.out.println("Exception: " + exception.getMessage());
+        }
     }
 }
