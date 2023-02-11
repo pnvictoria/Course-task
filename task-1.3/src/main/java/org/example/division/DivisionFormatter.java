@@ -45,16 +45,16 @@ public class DivisionFormatter {
         return formattedResult.toString();
     }
 
-    public String repeatSymbol(int count, String with) {
-        return new String(new char[count]).replace("\0", with);
+    private String repeatSymbol(int count, String with) {
+        return with.repeat(count);
     }
 
-    public int getCountOfDigits(int number) {
+    private int getCountOfDigits(int number) {
         return number == 0 ? 1 : (int) Math.log10(number) + 1;
     }
 
-    public int peekFirst() {
-        return divisionResult.getIntermediateResults().peek();
+    private int peekFirst() {
+        return divisionResult.getIntermediateResults().peekFirst();
     }
 
     private String displayCalculatingSausage(int countOfDigitsInPrevious) {
