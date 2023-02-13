@@ -8,7 +8,7 @@ public class App {
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 System.out.print("Enter string line to count the number of unique characters:");
-                System.out.println(counter.characterCounting(scanner.nextLine()));
+                System.out.println(counter.countChars(scanner.nextLine()));
             }
         } catch (RuntimeException e) {
             System.out.println("System error");

@@ -16,15 +16,15 @@ class CharacterCounterTest {
 
     @Test
     public void characterCounting_returnSameString_whenInputIsSame() {
-        String expected = counter.characterCounting("hello world!");
-        String actual = counter.characterCounting("hello world!");
+        String expected = counter.countChars("hello world!");
+        String actual = counter.countChars("hello world!");
         assertEquals(expected, actual);
     }
 
     @Test
     public void characterCounting_returnStringWithCountedUniqueCharacters_whenInputIsSpaces() {
         String expected = "\" \" - 5" + SEPARATOR;
-        String actual = counter.characterCounting("     ");
+        String actual = counter.countChars("     ");
         assertEquals(expected, actual);
     }
 
@@ -40,7 +40,7 @@ class CharacterCounterTest {
                 "\"5\" - 1" + SEPARATOR +
                 "\"6\" - 1" + SEPARATOR +
                 "\"2\" - 2" + SEPARATOR;
-        String actual = counter.characterCounting("3498 474430 485746 22");
+        String actual = counter.countChars("3498 474430 485746 22");
         assertEquals(expected, actual);
     }
 
@@ -55,7 +55,7 @@ class CharacterCounterTest {
                 "\"r\" - 1" + SEPARATOR +
                 "\"d\" - 1" + SEPARATOR +
                 "\"!\" - 1" + SEPARATOR;
-        String actual = counter.characterCounting("hello world!");
+        String actual = counter.countChars("hello world!");
         assertEquals(expected, actual);
     }
 
@@ -74,14 +74,14 @@ class CharacterCounterTest {
                 "\"0\" - 1" + SEPARATOR +
                 "\"2\" - 1" + SEPARATOR +
                 "\"M\" - 1" + SEPARATOR;
-        String actual = counter.characterCounting("birthday day is 02 May");
+        String actual = counter.countChars("birthday day is 02 May");
         assertEquals(expected, actual);
     }
 
     @Test
-    public void characterCounting_throwException_whenInputIsNull() {
-        RuntimeException exception = assertThrows(RuntimeException.class,
-                () -> counter.characterCounting(null));
-        assertTrue(exception.getMessage().contains("Input cannot be null"));
+    public void characterCounting_returnStringWithCountedUniqueCharacters_whenInputIsEmptyString() {
+        String expected = "";
+        String actual = counter.countChars("");
+        assertEquals(expected, actual);
     }
 }
