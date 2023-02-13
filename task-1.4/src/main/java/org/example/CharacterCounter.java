@@ -1,13 +1,14 @@
 package org.example;
 
-import java.util.*;
-
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 class CharacterCounter {
-    private Map<String, String> cache = new HashMap<>();
     private static final String SEPARATOR = System.lineSeparator();
+    private Map<String, String> cache = new HashMap<>();
 
-    public String computeStatistics(String input) {
+    public String characterCounting(String input) {
         if (input == null) {
             throw new IllegalArgumentException("Input cannot be null");
         }
@@ -15,15 +16,15 @@ class CharacterCounter {
             return cache.get(input);
         }
         Map<Character, Integer> countedChars = new LinkedHashMap<>();
-        for (char ch : input.toCharArray()) {
-            countedChars.put(ch, countedChars.getOrDefault(ch, 0) + 1);
+        for (char symbol : input.toCharArray()) {
+            countedChars.put(symbol, countedChars.getOrDefault(symbol, 0) + 1);
         }
-        String result = buildStatsView(countedChars);
+        String result = getView(countedChars);
         cache.put(input, result);
         return result;
     }
 
-    private String buildStatsView(Map<Character, Integer> countedChars) {
+    private String getView(Map<Character, Integer> countedChars) {
         StringBuilder result = new StringBuilder();
         for (Map.Entry<Character, Integer> entry : countedChars.entrySet()) {
             result.append(String.format("\"%s\" - %s%s", entry.getKey(), entry.getValue(), SEPARATOR));

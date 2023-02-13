@@ -1,23 +1,15 @@
 package org.example;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
-/**
- * Hello world!
- */
 public class App {
     public static void main(String[] args) {
         CharacterCounter counter = new CharacterCounter();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+        try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 System.out.print("Enter string line to count the number of unique characters:");
-                String input = reader.readLine();
-                System.out.println(counter.computeStatistics(input));
+                System.out.println(counter.characterCounting(scanner.nextLine()));
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
         } catch (RuntimeException e) {
             System.out.println("System error");
         }
