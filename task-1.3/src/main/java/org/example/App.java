@@ -29,7 +29,6 @@ public class App {
                         break;
                     default:
                         System.out.println("Incorrect number.");
-                        break;
                 }
             }
         } catch (RuntimeException exception) {

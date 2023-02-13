@@ -19,7 +19,7 @@ public class DivisionFormatter {
     }
 
     public String format() {
-        StringBuilder formattedResult = new StringBuilder("");
+        StringBuilder formattedResult = new StringBuilder();
         formattedResult.append("_").append(divisionResult.getDividend())
                 .append("|")
                 .append(divisionResult.getDivider())
@@ -29,7 +29,7 @@ public class DivisionFormatter {
         int spaces = dividendLength - peekFirstLength;
         int result = getCountOfDigits(divisionResult.getResult());
         formattedResult.append(" ")
-                .append(divisionResult.getIntermediateResults().pop())
+                .append(divisionResult.getIntermediateResults().removeFirst())
                 .append(repeatSymbol(spaces, " "))
                 .append("|").append(repeatSymbol(result, "-"))
                 .append(System.lineSeparator());
@@ -58,7 +58,7 @@ public class DivisionFormatter {
     }
 
     private String displayCalculatingSausage(int countOfDigitsInPrevious) {
-        StringBuilder column = new StringBuilder("");
+        StringBuilder column = new StringBuilder();
         int countOfDigits = getCountOfDigits(peekFirst());
         int numberOfSort = countOfDigitsInPrevious + 1;
         while (divisionResult.getIntermediateResults().size() > 1) {
@@ -66,11 +66,11 @@ public class DivisionFormatter {
             int countOfSpaces = numberOfSort - countOfDigits;
             column.append(repeatSymbol(countOfSpaces - 1, " "))
                     .append("_")
-                    .append(divisionResult.getIntermediateResults().pop())
+                    .append(divisionResult.getIntermediateResults().removeFirst())
                     .append(System.lineSeparator());
             column
                     .append(repeatSymbol(countOfSpaces, " "))
-                    .append(divisionResult.getIntermediateResults().pop())
+                    .append(divisionResult.getIntermediateResults().removeFirst())
                     .append(System.lineSeparator());
             column.append(repeatSymbol(countOfSpaces, " "))
                     .append(repeatSymbol(countOfDigits, "-"))
@@ -78,7 +78,7 @@ public class DivisionFormatter {
             countOfDigits = getCountOfDigits(peekFirst());
         }
         column.append(repeatSymbol(numberOfSort - getCountOfDigits(peekFirst()), " "))
-                .append(divisionResult.getIntermediateResults().pop());
+                .append(divisionResult.getIntermediateResults().removeFirst());
         return column.toString();
     }
 }
