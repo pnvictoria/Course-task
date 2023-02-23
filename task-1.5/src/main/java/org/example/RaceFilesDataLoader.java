@@ -1,4 +1,4 @@
-package org.example.loader;
+package org.example;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -42,15 +42,14 @@ public class RaceFilesDataLoader {
         return result.toString();
     }
 
-    public Map<String, LocalDateTime> sortGroupRaces() {
-        Map<String, LocalDateTime> sorted = groupRace().entrySet()
+    private Map<String, LocalDateTime> sortGroupRaces() {
+        return groupRace().entrySet()
                 .stream()
                 .sorted(comparingByValue())
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
-        return sorted;
     }
 
-    public Map<String, LocalDateTime> groupRace() {
+    private Map<String, LocalDateTime> groupRace() {
         Map<String, LocalDateTime> startFileData = getAbbreviationsAndTime(read(START_PATH));
         Map<String, LocalDateTime> endFileData = getAbbreviationsAndTime(read(END_PATH));
         return startFileData.entrySet().stream()
