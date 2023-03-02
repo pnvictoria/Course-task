@@ -2,12 +2,17 @@ package org.example.model;
 
 import java.time.LocalDateTime;
 
-public class Race {
+public class ReportLine {
     private String racer;
     private String team;
     private LocalDateTime duration;
 
-    public Race(String racer, String team, LocalDateTime duration) {
+    public ReportLine(String racer, String team) {
+        this.racer = racer;
+        this.team = team;
+    }
+
+    public ReportLine(String racer, String team, LocalDateTime duration) {
         this.racer = racer;
         this.team = team;
         this.duration = duration;

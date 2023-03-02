@@ -1,24 +1,39 @@
 package org.example;
 
-import org.example.view.RaceResult;
+import org.example.model.ReportLine;
+import org.example.service.FileService;
+import org.example.service.ParseRaceService;
+import org.example.service.RaceService;
+import org.example.view.RaceReport;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class RaceResultTest {
+class ReportLineReportTest {
     private static final String SEPARATOR = System.lineSeparator();
-    private RaceResult raceResult;
+    public static final String START_FILE = "task-1.5/src/test/resources/start.log";
+    public static final String END_FILE = "task-1.5/src/test/resources/end.log";
+    public static final String ABBREVIATIONS_FILE = "task-1.5/src/test/resources/abbreviations.txt";
+
+    private ParseRaceService parseRaceService ;
+    private FileService fileService;
+    private RaceReport raceReport;
 
     @BeforeEach
     void setup() {
-        raceResult = new RaceResult();
+        parseRaceService = new ParseRaceService();
+        fileService = new FileService();
+        raceReport = new RaceReport();
     }
 
     @Test
-    public void getRaceResult_returnStringWithCountedUniqueCharacters_whenInputIsSpaces() throws IOException {
+    public void getRaceReport_returnStringWithCountedUniqueCharacters_whenInputIsSpaces() throws IOException {
         String expected = " 1. Sebastian Vettel  | FERRARI                   | 01:04.415" + SEPARATOR +
                 " 2. Daniel Ricciardo  | RED BULL RACING TAG HEUER | 01:12.013" + SEPARATOR +
                 " 3. Valtteri Bottas   | MERCEDES                  | 01:12.434" + SEPARATOR +
@@ -39,7 +54,20 @@ class RaceResultTest {
                 "17. Marcus Ericsson   | SAUBER FERRARI            | 01:13.265" + SEPARATOR +
                 "18. Lance Stroll      | WILLIAMS MERCEDES         | 01:13.323" + SEPARATOR +
                 "19. Kevin Magnussen   | HAAS FERRARI              | 01:13.393";
-        String actual = raceResult.getRaceResult();
+
+        List<String> abbreviationFileData = fileService.read(ABBREVIATIONS_FILE);
+        List<String> startFileData = fileService.read(START_FILE);
+        List<String> endFileData = fileService.read(END_FILE);
+
+        Map<String, ReportLine> reportLine = parseRaceService.getAbbreviationsAndRacer(abbreviationFileData);
+        Map<String, LocalDateTime> startData = parseRaceService.getAbbreviationsAndTime(startFileData);
+        Map<String, LocalDateTime> endData = parseRaceService.getAbbreviationsAndTime(endFileData);
+
+        RaceService raceService = new RaceService(reportLine, startData, endData);
+        List<ReportLine> reportLines = raceService.orderRacers();
+
+        String actual = raceReport.getRaceReport(reportLines);
+
         assertEquals(expected, actual);
     }
 }

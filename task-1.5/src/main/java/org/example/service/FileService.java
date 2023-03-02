@@ -6,7 +6,11 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class FileService {
-    public List<String> read(String path) throws IOException {
-        return Files.readAllLines(Paths.get(path));
+    public List<String> read(String path) {
+        try {
+            return Files.readAllLines(Paths.get(path));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
