@@ -14,6 +14,7 @@
         <module>task-1.3</module>
         <module>task-1.4</module>
         <module>task-1.5</module>
+        <module>task-2.1</module>
     </modules>
 
     <properties>
